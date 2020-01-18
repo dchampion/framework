@@ -19,8 +19,6 @@ import org.springframework.stereotype.Component;
  * (that is written to, or read from, the cache).
  * 
  * @param <T> the type of the body of a {@link ResponseEntity}.
- * 
- * @see SharedResponseCache
  */
 @Component
 @ConditionalOnProperty(name = "async.response_cache.scope", havingValue = "in-process", matchIfMissing = true)
