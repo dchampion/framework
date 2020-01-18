@@ -4,7 +4,7 @@ In order to exercise the <i>Java Tools Framework</i> contained in this repo, you
 
 Follow the instructions below to install both the <i>Java Tools Framework</i> and the <i>Framework Demo Project</i>.
 
-For a full descritpion of the features of the <i>Java Tools Framework</i>, consult the <a href=https://github.com/dchampion/framework/wiki target="_blank">project wiki</a>.
+For a full descritpion of the features of the <i>Java Tools Framework</i>, consult the <a href=https://github.com/dchampion/framework/wiki/Java-Tools-Framework target="_blank">project wiki</a>.
 
 ## Project Requirements
 
