@@ -10,6 +10,17 @@
 
   <name>Java Tools Framework</name>
   <url>https://github.com/dchampion/framework</url>
+  <description>
+    The Java Tools Framework is a collection of features designed to assist with the implementation
+    of secure distributed systems. It is based on the the Spring framework.
+  </description>
+
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
