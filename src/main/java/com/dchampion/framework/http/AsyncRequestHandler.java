@@ -210,11 +210,11 @@ public class AsyncRequestHandler<T> {
         UUID uuid = UUID.randomUUID();
         
         // Build an initial response to return immediately to the caller.
-        ResponseEntity<T> response = new ResponseBuilder<T>()
-                .header("Task-Id", uuid.toString())
-                .header(TASK_STATUS_KEY, TaskStatus.SUBMITTED)
-                .status(HttpStatus.ACCEPTED)
-                .build();
+        ResponseEntity<T> response = ResponseEntity
+            .accepted()
+            .header("Task-Id", uuid.toString())
+            .header(TASK_STATUS_KEY, TaskStatus.SUBMITTED.getStatus())
+            .build();
         
         // Cache it.
         responseCache.put(uuid, response);
@@ -239,10 +239,10 @@ public class AsyncRequestHandler<T> {
             T body = executorService.submit(task).get(timeout, TimeUnit.SECONDS);
             
             // Build a response containing the results of the task.
-            ResponseEntity<T> response = new ResponseBuilder<T>()
-                    .header(TASK_STATUS_KEY, TaskStatus.COMPLETE)
-                    .body(body)
-                    .build();
+            ResponseEntity<T> response = ResponseEntity
+                .ok()
+                .header(TASK_STATUS_KEY, TaskStatus.COMPLETE.getStatus())
+                .body(body);
             
             // Cache it.
             responseCache.put(uuid, response);
@@ -277,12 +277,12 @@ public class AsyncRequestHandler<T> {
         }
 
         // Build a response.
-        ResponseEntity<T> response = new ResponseBuilder<T>()
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .header(TASK_STATUS_KEY, status)
-                .header("Task-Error-Type", t.getClass() != null ? t.getClass().getName() : "Unknown")
-                .header("Task-Error-Message", t.getMessage() != null ? t.getMessage() : "None")
-                .build();
+        ResponseEntity<T> response = ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .header(TASK_STATUS_KEY, status.getStatus())
+            .header("Task-Error-Type", t.getClass() != null ? t.getClass().getName() : "Unknown")
+            .header("Task-Error-Message", t.getMessage() != null ? t.getMessage() : "None")
+            .build();
         
         // Cache it.
         responseCache.put(uuid, response);
@@ -341,9 +341,9 @@ public class AsyncRequestHandler<T> {
         if (response == null) {
             
             // We have no response for the supplied task ID.
-            response = new ResponseBuilder<T>()
+            response = ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .header(TASK_STATUS_KEY, TaskStatus.UNSUBMITTED)
+                .header(TASK_STATUS_KEY, TaskStatus.UNSUBMITTED.getStatus())
                 .build();
 
         } else {
@@ -354,12 +354,12 @@ public class AsyncRequestHandler<T> {
 
                 // Remove the response from the cache as we are done.
                 responseCache.remove(uuid);
-                
+
                 // Build up a response containing the results of the task.
-                response = new ResponseBuilder<T>()
-                    .header(TASK_STATUS_KEY, TaskStatus.COMPLETE)
-                    .body(body)
-                    .build();
+                response = ResponseEntity
+                    .ok()
+                    .header(TASK_STATUS_KEY, TaskStatus.COMPLETE.getStatus())
+                    .body(body);
 
             } else {
                 
@@ -370,8 +370,9 @@ public class AsyncRequestHandler<T> {
                     
                     // This is the first time we've been polled; tell the caller
                     // the task is still pending.
-                    response = new ResponseBuilder<T>()
-                        .header(TASK_STATUS_KEY, TaskStatus.PENDING)
+                    response = ResponseEntity
+                        .ok()
+                        .header(TASK_STATUS_KEY, TaskStatus.PENDING.getStatus())
                         .build();
 
                     responseCache.put(uuid, response);
@@ -385,82 +386,6 @@ public class AsyncRequestHandler<T> {
             }
         }
 
-        return response;
-    }
-}
-
-/**
- * A convenience class for building up an HTTP {@link ResponseEntity}.
- * 
- * @param <T> the type of the {@link ResponseEntity}'s body.
- */
-final class ResponseBuilder<T> {
-
-    private HttpHeaders headers = new HttpHeaders();
-    private T body = null;
-    private HttpStatus status = HttpStatus.OK;
-
-    ResponseBuilder() {
-    }
-
-    /**
-     * Set a single header pair. This is a convenience method specific to {@code Task-Status} headers.
-     * 
-     * @param headerName the name of the header (i.e. Task-Status).
-     * @param status the {@link AsyncRequestHandler.TaskStatus}.
-     * 
-     * @return an instance of this class containing the supplied header info.
-     */
-    ResponseBuilder<T> header(String headerName, AsyncRequestHandler.TaskStatus status) {
-        return header(headerName, status.getStatus());
-    }
-
-    /**
-     * Set a single header pair.
-     * 
-     * @param headerName the name of the header.
-     * @param headerValue the value of the header.
-     * 
-     * @return an instance of this class containing the supplied header info.
-     */
-    ResponseBuilder<T> header(String headerName, String headerValue) {
-        headers.set(headerName, headerValue);
-        return this;
-    }
-
-    /**
-     * Set a body.
-     * 
-     * @param body The response body.
-     * 
-     * @return an instance of this class containing the supplied body.
-     */
-    ResponseBuilder<T> body(T body) {
-        this.body = body;
-        return this;
-    }
-
-    /**
-     * Set an HTTP status.
-     * 
-     * @param status the {@link HttpStatus}.
-     * 
-     * @return an instance of this class containing the supplied HTTP status.
-     */
-    ResponseBuilder<T> status(HttpStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * The terminal operation of this class, which returns a {@link ResponseEntity} containing
-     * zero or more headers, an optional body, and an HTTP status supplied via intermediate operations of
-     * this class.
-     * 
-     * @return a valid {@link ResponseEntity}.
-     */
-    ResponseEntity<T> build() {
-        ResponseEntity<T> response = new ResponseEntity<T>(body, headers, status);
         return response;
     }
 }
