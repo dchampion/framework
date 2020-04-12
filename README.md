@@ -8,7 +8,7 @@ For a full descritpion of the features of the <i>Java Tools Framework</i>, consu
 
 ## Project Requirements
 
-* The Java Development Kit (JDK), version 12 or greater, must be installed on your computer.
+* The Java Development Kit (JDK), version 8 or greater, must be installed on your computer.
 
 ## Install the Java Tools Framework and Demo Project
 Use one of the following methods to install the Framework and  Demo Project, and their build and runtime dependencies, on your computer:
@@ -27,7 +27,7 @@ Use one of the following methods to install the Framework and  Demo Project, and
 * (Optional) To generate Javadocs for either project, type <code>./mvnw javadoc:javadoc</code> from the project root directory. To browse the Javadocs, open <code>target/site/apidocs/index.html</code> (relative to the project root directory) in a web browser. (Note this path will differ for the Framework Demo Project; there it is <code>server/target/site/apidocs/index.html</code>.)
 
 ## Run the Framework Demo
-* From the root directory of the Framework Demo Project, type <code>java -jar server/target/server-1.0.0.jar</code> (the Java Development Kit (JDK) version 12 or greater must be in your search path for this command to work).
+* From the root directory of the Framework Demo Project, type <code>java -jar server/target/server-1.0.0.jar</code> (the Java Development Kit (JDK) version 8 or greater must be in your search path for this command to work).
 
 * Type <code>http<nolink>://localhost:8080</code> in the address bar of a web browser of your choice.
 
