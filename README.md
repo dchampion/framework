@@ -4,7 +4,7 @@ In order to exercise the features of the framework contained in this repo, you w
 
 Follow the instructions below to install both the <i>framework</i> and the <i>framework-demo</i>.
 
-For a full descritpion of the features of this framework, consult the <a href=https://github.com/dchampion/framework/wiki/Java-Tools-Framework target="_blank">wiki</a>.
+For a full descritpion of the features of this framework, consult the <a href=https://github.com/dchampion/framework/wiki/Web-Application-Framework target="_blank">wiki</a>.
 
 ## Project Requirements
 
