@@ -1,5 +1,8 @@
 package com.dchampion.framework;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +17,12 @@ public class FrameworkConfig {
 
     @Bean
     public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder(Integer.parseInt(value));
+        SecureRandom sr = null;
+        try {
+            sr = SecureRandom.getInstance("Windows-PRNG");
+        } catch (NoSuchAlgorithmException nsae) {
+            sr = new SecureRandom();
+        }
+        return new BCryptPasswordEncoder(Integer.parseInt(value), sr);
     }
 }

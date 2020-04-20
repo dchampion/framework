@@ -39,7 +39,7 @@ public class PasswordUtils {
      */
     public boolean isLeaked(String password) {
 
-        boolean isBreached = false;
+        boolean leaked = false;
         try {
             MessageDigest md = MessageDigest.getInstance(breachApiHashAlgo);
             char[] chars = Hex.encode(md.digest(password.getBytes()));
@@ -56,9 +56,9 @@ public class PasswordUtils {
             String[] body = response.getBody().split("\n");
 
             String suffix = new String(chars, 5, chars.length-5).toUpperCase();
-            for (int i=0; i<body.length && !isBreached; i++) {
+            for (int i=0; i<body.length && !leaked; i++) {
                 if (body[i].startsWith(suffix) && !body[i].endsWith(":0")) {
-                    isBreached = true;
+                    leaked = true;
                 }
             }
         } catch (NoSuchAlgorithmException e) {
@@ -66,6 +66,6 @@ public class PasswordUtils {
         } catch (URISyntaxException e) {
             log.warn(e.getMessage());
         }
-        return isBreached;
+        return leaked;
     }
 }
