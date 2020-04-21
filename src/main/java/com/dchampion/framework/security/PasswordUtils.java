@@ -53,12 +53,15 @@ public class PasswordUtils {
                     MediaType.TEXT_HTML).header("Add-Padding", "true").build();
 
             ResponseEntity<String> response = client.exchange(request, String.class);
-            String[] body = response.getBody().split("\n");
+            String body = response.getBody();
+            if (body != null) {
+                String[] strings = body.split("\n");
 
-            String suffix = new String(chars, 5, chars.length-5).toUpperCase();
-            for (int i=0; i<body.length && !leaked; i++) {
-                if (body[i].startsWith(suffix) && !body[i].endsWith(":0")) {
-                    leaked = true;
+                String suffix = new String(chars, 5, chars.length-5).toUpperCase();
+                for (int i=0; i<strings.length && !leaked; i++) {
+                    if (strings[i].startsWith(suffix) && !strings[i].endsWith(":0")) {
+                        leaked = true;
+                    }
                 }
             }
         } catch (NoSuchAlgorithmException e) {
