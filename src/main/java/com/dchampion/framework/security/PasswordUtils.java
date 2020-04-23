@@ -2,6 +2,7 @@ package com.dchampion.framework.security;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -42,7 +43,7 @@ public class PasswordUtils {
         boolean leaked = false;
         try {
             MessageDigest md = MessageDigest.getInstance(breachApiHashAlgo);
-            char[] chars = Hex.encode(md.digest(password.getBytes()));
+            char[] chars = Hex.encode(md.digest(password.getBytes(StandardCharsets.UTF_8)));
 
             String prefix = new String(chars, 0, 5).toUpperCase();
             String url = breachApiUriRoot + prefix;
