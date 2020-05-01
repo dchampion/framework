@@ -100,7 +100,7 @@ public class PasswordUtils {
                 log.warn("SecureRandom.getInstance(\"DRBG\") threw a "
                     + "NoSuchAlgorithmException; defaulting to " + secureRandom.getAlgorithm());
             }
-            log.info("Using SecureRandom algorigthm: " + secureRandom.getAlgorithm());
+            log.info("Using SecureRandom algorithm: " + secureRandom.getAlgorithm());
             log.info("Using SecureRandom parameters: " + secureRandom.getParameters().toString());
             encoder = new BCryptPasswordEncoder(Integer.parseInt(pwHashWorkFactor), secureRandom);
         }
