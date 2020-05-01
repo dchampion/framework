@@ -8,7 +8,7 @@ For a full descritpion of the features of this framework, consult the <a href=ht
 
 ## Project Requirements
 
-* The Java Development Kit (JDK), version 8 or greater, must be installed on your computer.
+* The Java Development Kit (JDK), version 9 or greater, must be installed on your computer.
 
 ## Install the <i>framework</i> and <i>framework-demo</i> Projects
 Use one of the following methods to install the framework and framework-demo projects, and their build and runtime dependencies:
