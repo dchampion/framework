@@ -12,6 +12,7 @@ import java.util.concurrent.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -212,6 +213,7 @@ public class AsyncRequestHandler<T> {
         // Build an initial response to return immediately to the caller.
         ResponseEntity<T> response = ResponseEntity
             .accepted()
+            .cacheControl(CacheControl.noStore())
             .header("Task-Id", uuid.toString())
             .header(TASK_STATUS_KEY, TaskStatus.SUBMITTED.getStatus())
             .build();
@@ -241,6 +243,7 @@ public class AsyncRequestHandler<T> {
             // Build a response containing the results of the task.
             ResponseEntity<T> response = ResponseEntity
                 .ok()
+                .cacheControl(CacheControl.noStore())
                 .header(TASK_STATUS_KEY, TaskStatus.COMPLETE.getStatus())
                 .body(body);
             
@@ -279,6 +282,7 @@ public class AsyncRequestHandler<T> {
         // Build a response.
         ResponseEntity<T> response = ResponseEntity
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .cacheControl(CacheControl.noStore())
             .header(TASK_STATUS_KEY, status.getStatus())
             .header("Task-Error-Type", t.getClass() != null ? t.getClass().getName() : "Unknown")
             .header("Task-Error-Message", t.getMessage() != null ? t.getMessage() : "None")
@@ -343,6 +347,7 @@ public class AsyncRequestHandler<T> {
             // We have no response for the supplied task ID.
             response = ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .cacheControl(CacheControl.noStore())
                 .header(TASK_STATUS_KEY, TaskStatus.UNSUBMITTED.getStatus())
                 .build();
 
@@ -358,6 +363,7 @@ public class AsyncRequestHandler<T> {
                 // Build up a response containing the results of the task.
                 response = ResponseEntity
                     .ok()
+                    .cacheControl(CacheControl.noStore())
                     .header(TASK_STATUS_KEY, TaskStatus.COMPLETE.getStatus())
                     .body(body);
 
@@ -372,6 +378,7 @@ public class AsyncRequestHandler<T> {
                     // the task is still pending.
                     response = ResponseEntity
                         .ok()
+                        .cacheControl(CacheControl.noStore())
                         .header(TASK_STATUS_KEY, TaskStatus.PENDING.getStatus())
                         .build();
 
