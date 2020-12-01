@@ -1,7 +1,7 @@
 package com.dchampion.framework.http;
 
-import java.time.Duration;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -26,7 +26,7 @@ public class InProcessResponseCache<T> implements ResponseCache<T> {
 
     private Cache<UUID, ResponseEntity<T>> cache = 
             CacheBuilder.newBuilder()
-            .expireAfterAccess(Duration.ofMinutes(180))
+            .expireAfterAccess(180, TimeUnit.MINUTES)
             .build();
 
     @Override
