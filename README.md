@@ -1,6 +1,6 @@
 # framework
 ## Summary
-In order to exercise the features of the framework contained in this repo, you will need to install both the framework itself, and a separate project&mdash;the <i><a href=https://github.com/dchampion/framework-demo target="_blank">framework-demo</a></i>&mdash;that uses it.
+In order to use the framework contained in this repo, you will need to install both the framework itself, and a separate project&mdash;the <i><a href=https://github.com/dchampion/framework-demo target="_blank">framework-demo</a></i>&mdash;that exercises its features.
 
 Follow the instructions below to install both the <i>framework</i> and the <i>framework-demo</i>.
 
@@ -8,19 +8,19 @@ For a full descritpion of the features of this framework, consult the <a href=ht
 
 ## Project Requirements
 
-* The Java Development Kit (JDK), version 9 or greater, must be installed on your computer.
+* The Java Development Kit (JDK), version 8 or greater, must be installed on your computer.
 
 ## Install the <i>framework</i> and <i>framework-demo</i> Projects
 Use one of the following methods to install the framework and framework-demo projects, and their build and runtime dependencies:
 
-* If Git is installed, navigate to a clean directory on your file system and type <code>git clone https<nolink>://github.com/dchampion/framework.git</code>. This will install the Framework in a subdirectory called <code>framework</code>.
+* If Git is installed, navigate to a clean directory on your file system and type <code>git clone https<nolink>://github.com/dchampion/framework.git</code>. This will install the framework in a subdirectory called <code>framework</code>.
 
-* From the same directory in which you executed the <code>clone</code> in the previous step, type <code>git clone https<nolink>://github.com/dchampion/framework-demo.git</code>. This will install the Framework Demo Project in a subdirectory called <code>framework-demo</code>.
+* From the same directory in which you executed the <code>clone</code> in the previous step, type <code>git clone https<nolink>://github.com/dchampion/framework-demo.git</code>. This will install the companion framework demo project in a subdirectory called <code>framework-demo</code>.
 
-* Alternatively, if <code>Git</code> is not installed, or you do not wish to use it, use links on this page and the <a href=https://github.com/dchampion/framework-demo target="_blank">framework-demo home page</a> to download and extract zipped versions of the repos into a clean file system directory.
+* If <code>Git</code> is not installed, or you do not wish to use it, click the <code>Code</code> button on this page and select <code>Download ZIP</code> to download and extract a zipped version of the repo into a clean file system directory.
 
 ## Build the <i>framework</i> and <i>framework-demo</i> Projects
-* Using a command (Windows) or bash (Linux or Mac) shell, change into the <code>framework</code> directory and type <code>./mvnw clean install</code> (if using Windows, type <code>mvnw clean install</code>&mdash;that is, omit the <code>./</code>).
+* Using an operating system command-line shell&mdash;e.g. <code>cmd</code> (Windows), <code>bash</code> (Linux) or <code>Terminal</code> (MacOS)&mdash;change into the <code>framework</code> directory and type <code>./mvnw clean install</code> (if using Windows, type <code>mvnw clean install</code>&mdash;that is, omit the <code>./</code>).
 
 * Change into the <code>framework-demo</code> directory and type <code>./mvnw clean install</code> (again, if using Windows, type <code>mvnw clean install</code>).
 
