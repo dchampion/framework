@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -281,7 +282,7 @@ public class AsyncRequestHandler<T> {
 
         // Build a response.
         ResponseEntity<T> response = ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .status(HttpStatusCode.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
             .cacheControl(CacheControl.noStore())
             .header(TASK_STATUS_KEY, status.getStatus())
             .header("Task-Error-Type", t.getClass() != null ? t.getClass().getName() : "Unknown")
@@ -346,7 +347,7 @@ public class AsyncRequestHandler<T> {
             
             // We have no response for the supplied task ID.
             response = ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatusCode.valueOf(HttpStatus.BAD_REQUEST.value()))
                 .cacheControl(CacheControl.noStore())
                 .header(TASK_STATUS_KEY, TaskStatus.UNSUBMITTED.getStatus())
                 .build();

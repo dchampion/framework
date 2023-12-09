@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -39,7 +40,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         // but don't reveal too much to the client.
         return handleExceptionInternal(exception, null,
-            new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, null);
+            new HttpHeaders(), HttpStatusCode.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()), null);
     }
 
     /**
@@ -49,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @param exception the exception
 	 * @param body the body for the response
 	 * @param headers the headers for the response
-	 * @param status the response status
+	 * @param statusCode the response status
 	 * @param request the current request
      *
      * @return a {@link ResponseEntity} whose body contains a generic error message for the
@@ -57,14 +58,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception exception, Object body,
-            HttpHeaders headers, HttpStatus status, WebRequest request) {
-        if (status == null) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
+        if (statusCode == null) {
+            statusCode = HttpStatusCode.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
         if (headers == null) {
             headers = new HttpHeaders();
         }
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
-        return ResponseEntity.status(status).headers(headers).body(errMsg);
+        return ResponseEntity.status(statusCode).headers(headers).body(errMsg);
     }
 }
